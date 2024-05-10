@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Contatos</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        li:hover {
+            background: #e9ecef;
+        }
+        .actions a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .edit-btn {
+            background-color: #007bff;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Lista de Contatos</h1>
+            <a href="{% url 'adicionar_contato' %}" class="btn btn-success">Adicionar Novo Contato</a>
+        </div>
+        <ul>
+            {% for contato in contatos %}
+            <li class="list-item">
+                <strong>{{ contato.nome }}</strong> - {{ contato.telefone }} - {{ contato.email }}
+                <div class="actions">
+                    <a href="{% url 'editar_contato' contato.id %}" class="edit-btn btn btn-primary">Editar</a>
+                    <a href="{% url 'deletar_contato' contato.id %}" class="delete-btn btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar este contato?');">Deletar</a>
+                </div>
+            </li>
+            {% empty %}
+            <li>Nenhum contato encontrado.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
